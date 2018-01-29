@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!--  <script type="text/javascript" src="/javascripts/script.js"></script> -->
+    <% include ../public/javascripts/script %>
+  </head>
+  <body>
+    <div class="navbar" >
+      <div class="pull-left">
+        <div class="navbar-item navbar-filter-item">
+          <i class="material-icons" style="font-size:24px">format_list_bulleted</i>
+          <span>Filters</span>
+        </div>
+        <div class="navbar-item">
+          <span><%= category %></span>
+          <i class="material-icons" style="font-size:24px">expand_more</i>
+          <div class="navbar-item-content">
+            <span><a href= "./search?propType=Buy">Buy</a></span>
+            <span><a href= "./search?propType=Rent">Rent</a></span>
+          </div>
+        </div>
+
+        <div class="navbar-item">
+          <span>Bedrooms</span>
+          <i class="material-icons" style="font-size:24px">expand_more</i>
+          <div class="navbar-item-content">
+            <span><a href=<%=modifyurl(page,'bed','1') %> >1 BHK</a></span>
+            <span><a href=<%=modifyurl(page,'bed','2') %> >2 BHK</a></span>
+            <span><a href=<%=modifyurl(page,'bed','3') %> >3 BHK</a></span>
+            <span><a href=<%=modifyurl(page,'bed','4') %> >3plus BHK</a></span>
+          </div>
+        </div>
+
+        <div class="navbar-item">
+          <span>Sort</span>
+          <i class="material-icons" style="font-size:24px">expand_more</i>
+          <div class="navbar-item-content">
+            <span><a href=<%=modifyurl(page,'sort','relevance') %> > Relevance</a></span>
+            <span><a href=<%=modifyurl(page,'sort','ASC') %> > Price: Low to High</a></span>
+            <span><a href=<%=modifyurl(page,'sort','DESC') %> > Price: High to Low</a></span>
+            <span><a href=<%=modifyurl(page,'sort','popularity') %> > Popularity</a></span>
+          </div>
+        </div>
+
+
+
+      </div>
+      <div class="pull-right">
+        <div class="search-container">
+          <form action=<%=page %> >
+            <input type="text" placeholder="Search.." name="city">
+            <button type="submit"><i class="fa fa-search"></i></button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div style="padding-bottom:20px"></div>
+    <% for(var i in propData) { %>
+      <div class="card"  >
+        <div class = "property-image"><img src=<%=propData[i].listing.mainImageURL%> alt=<%=propData[i].listing.mainImage.altText%> style="width:100%"> </div>
+
+        <div class="property-content">
+          <h3 class = property-title> <b><%=propData[i].listing.property.unitName%></b>  </h4>
+          <p><%=propData[i].listing.property.project.locality.label%>, <%=propData[i].listing.property.project.locality.suburb.city.label%></p>
+        </div>
+        <div class="listing-highlights">
+          <div class="hcol">
+            <div class="price">
+              <sup class="rupee">₹</sup>
+              <span class="val">
+                <%= convertPrice(propData[i].listing.currentListingPrice.price).val %>
+              </span>
+              <span class="unit">
+                <%= convertPrice(propData[i].listing.currentListingPrice.price).unit %>
+              </span>
+            </div>
+            <div class="lbl">
+              <%= propData[i].listing.currentListingPrice.pricePerUnitArea %> / sq ft
+            </div>
+          </div>
+          <div class="hcol">
+            <div class="size">
+              <span class="val"><%= propData[i].listing.property.size %></span>
+            </div>
+            <div class="lbl">Area in sq ft</div>
+          </div>
+          <div class="hcol">
+            <div class="size">
+              <span class="val"><%= propData[i].listing.furnished %></span>
+            </div>
+            <div class="lbl">Status</div>
+          </div>
+        </div>
+        <div class="listing-details">
+          <% if(propData[i].listing.listingCategory !== "Rental" && propData[i].listing.property.project.possessionDate !== undefined){ %>
+          <span class="keypoints"><strong>Possession by <%= convDate(propData[i].listing.property.project.possessionDate) %></strong></span>
+          <% }%>
+          <% if(propData[i].listing.property.bathrooms !=1) {%>
+          <span class="keypoints"><%=propData[i].listing.property.bathrooms %> Bathrooms </span>
+          <% } else { %>
+            <span class="keypoints"><%=propData[i].listing.property.bathrooms %> Bathroom </span>
+            <% }%>
+            <% if(propData[i].listing.floor >=1){%>
+            <span class="keypoints"><%=propData[i].listing.floor %> of <%=propData[i].listing.totalFloors%>floor </span>
+            <% }%>
+            <% if(propData[i].listing.property.balcony >=1){%>
+            <span class="keypoints"><%=propData[i].listing.property.balcony %> Balcony </span>
+            <% }%>
+        </div>
+      </div>
+    <% } %>
+  </body>
+</html>
+
+<!-- propData = json_returned.data.0.facetedResponse.items-->

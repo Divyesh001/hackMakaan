@@ -1,0 +1,19 @@
+.mainText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform : translate(-50%, -50%);
+  font-size: 40px;
+  font-weight: bold;
+  text-decoration: none;
+  font-family: Bellefair;
+}
+
+a {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+a:hover {
+  color: #FF9800;
+}

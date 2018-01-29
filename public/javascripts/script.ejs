@@ -1,0 +1,53 @@
+<%
+ propertyPage = function(url){
+    var baseURL="https://www.makaan.com/"+url;
+
+    window.open(baseURL,'_newtab');
+  }
+  modifyurl = function(url,param, value) {
+   console.log("hello mere bhai " + url);
+   if(url === '/' ){
+     url = url+'search';
+     //console.log(url);
+   }
+
+   var val = new RegExp('(\\?|\\&)' + param + '=.*?(?=(&|$))'),
+      qstring = /\?.+$/;
+
+  // Check if the parameter exists
+  if (val.test(url))
+  {
+      // if it does, replace it, using the captured group
+      // to determine & or ? at the beginning
+      return url.replace(val, '$1' + param + '=' + value);
+  }
+  else if (qstring.test(url))
+  {
+      // otherwise, if there is a query string at all
+      // add the param to the end of it
+      return url + '&' + param + '=' + value;
+  }
+  else
+  {
+      // if there's no query string, add one
+      return url + '?' + param + '=' + value;
+  }
+}
+ convertPrice = function (num) {
+    if(num>=10000000) {
+      return {'val': Number(num/10000000).toFixed(2), 'unit': 'Cr'};
+    }
+    else if(num>=100000) {
+      return {'val' : Number(num/100000).toFixed(2), 'unit': 'L'};
+    }
+    else {
+      return {'val': Number(num/1000).toFixed(2), 'unit': 'K'};
+    }
+  }
+  convDate = function(d) {
+    d = new Date(d);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return (months[d.getUTCMonth()] + ' ' + d.getUTCFullYear());
+  }
+%>

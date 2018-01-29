@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <% include ../public/javascripts/script %>
+
+  </head>
+  <body>
+    <div id='mainpage'>
+      <img src='/images/mlogo.jpg'>
+      <div>
+        <span class='maintext2'> <span> <a href=<%= modifyurl(page,'propType','Buy') %> > BUY </a> </span> /// <span><a href=<%= modifyurl(page,'propType','Rent') %> >RENT </a> </span> </span>
+      </div>
+    </div>
+
+  </body>
+</html>
