@@ -60,7 +60,7 @@
     </div>
     <div style="padding-bottom:20px"></div>
     <% for(var i in propData) { %>
-      <div class="card"  >
+      <div class="card" onclick='location.href = "https://www.makaan.com/<%=propData[i].listing.resaleURL %>";' >
         <div class = "property-image"><img src=<%=propData[i].listing.mainImageURL%> alt=<%=propData[i].listing.mainImage.altText%> style="width:100%"> </div>
 
         <div class="property-content">
